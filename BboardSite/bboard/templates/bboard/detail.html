@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ bb.title }}</title>
+</head>
+<body>
+    <h1>{{ bb.title }}</h1>
+    <p>{{ bb.content }}</p>
+    <p>Цена: {{ bb.price }} руб.</p>
+    <p>Опубликовано: {{ bb.published }}</p>
+    <a href="{% url 'index' %}">На главную</a>
+</body>
+</html>
