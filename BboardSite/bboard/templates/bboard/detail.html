@@ -5,6 +5,9 @@
 </head>
 <body>
     <h1>{{ bb.title }}</h1>
+    {% if bb.image %}
+        <img src="{{ bb.image.url }}" alt="{{ bb.title }}" width="200">
+    {% endif %}
     <p>{{ bb.content }}</p>
     <p>Цена: {{ bb.price }} руб.</p>
     <p>Опубликовано: {{ bb.published }}</p>

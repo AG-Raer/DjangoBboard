@@ -10,6 +10,9 @@
         {% for bb in bbs %}
             <li>
                 <h3><a href="{% url 'detail' bb.id %}">{{ bb.title }}</a></h3>
+                {% if bb.image %}
+                    <img src="{{ bb.image.url }}" alt="{{ bb.title }}" width="100">
+                {% endif %}
                 <p>{{ bb.content }}</p>
                 <p>Цена: {{ bb.price }} руб.</p>
                 <p>Опубликовано: {{ bb.published }}</p>
