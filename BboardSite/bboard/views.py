@@ -19,3 +19,10 @@ def create(request):
 def detail(request, slug):
     bb = get_object_or_404(Bb, slug=slug)
     return render(request, 'bboard/detail.html', {'bb': bb})
+
+def delete(request, slug):
+    bb = get_object_or_404(Bb, slug=slug)
+    if request.method == 'POST':
+        bb.delete()
+        return redirect('index')
+    return render(request, 'bboard/delete.html', {'bb': bb})
