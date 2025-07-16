@@ -1,3 +1,24 @@
+from django.shortcuts import render, redirect
+from .models import Bb
+from .forms import BbForm
+
+
+def index(request):
+    bbs = Bb.objects.all()
+    return render(request, 'bboard/index.html', {'bbs': bbs})
+
+
+def create(request):
+    if request.method == 'POST':
+        form = BbForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = BbForm()
+    return render(request, 'bboard/create.html', {'form': form})
+
+
 from django.shortcuts import render
 
 # Create your views here.
