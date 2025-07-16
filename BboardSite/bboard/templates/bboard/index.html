@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Доска объявлений</title>
+</head>
+<body>
+    <h1>Объявления</h1>
+    <a href="{% url 'create' %}">Добавить объявление</a>
+    <ul>
+        {% for bb in bbs %}
+            <li>
+                <h3>{{ bb.title }}</h3>
+                <p>{{ bb.content }}</p>
+                <p>Цена: {{ bb.price }} руб.</p>
+                <p>Опубликовано: {{ bb.published }}</p>
+            </li>
+        {% empty %}
+            <li>Объявлений пока нет</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
