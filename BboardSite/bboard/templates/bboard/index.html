@@ -11,7 +11,7 @@
     <ul>
         {% for bb in bbs %}
             <li>
-                <h3><a href="{% url 'detail' bb.id %}">{{ bb.title }}</a></h3>
+                <h3><a href="{% url 'detail' bb.slug %}">{{ bb.title }}</a></h3>
                 {% if bb.image %}
                     <img src="{{ bb.image.url }}" alt="{{ bb.title }}" width="100">
                 {% endif %}
