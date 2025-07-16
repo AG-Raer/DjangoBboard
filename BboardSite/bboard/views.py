@@ -16,6 +16,6 @@ def create(request):
         form = BbForm()
     return render(request, 'bboard/create.html', {'form': form})
 
-def detail(request, bb_id):
-    bb = get_object_or_404(Bb, pk=bb_id)
+def detail(request, slug):
+    bb = get_object_or_404(Bb, slug=slug)
     return render(request, 'bboard/detail.html', {'bb': bb})
