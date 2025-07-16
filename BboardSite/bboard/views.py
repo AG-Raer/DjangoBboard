@@ -8,7 +8,7 @@ def index(request):
 
 def create(request):
     if request.method == 'POST':
-        form = BbForm(request.POST)
+        form = BbForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('index')
@@ -19,6 +19,3 @@ def create(request):
 def detail(request, bb_id):
     bb = get_object_or_404(Bb, pk=bb_id)
     return render(request, 'bboard/detail.html', {'bb': bb})
-from django.shortcuts import render
-
-# Create your views here.

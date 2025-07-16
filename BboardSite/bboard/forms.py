@@ -4,9 +4,10 @@ from .models import Bb
 class BbForm(forms.ModelForm):
     class Meta:
         model = Bb
-        fields = ['title', 'content', 'price']
+        fields = ['title', 'content', 'price', 'image']
         labels = {
             'title': 'Заголовок',
             'content': 'Описание',
             'price': 'Цена',
+            'image': 'Изображение',
         }
