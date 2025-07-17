@@ -13,6 +13,8 @@
     <p>{{ bb.content }}</p>
     <p>Цена: {{ bb.price }} руб.</p>
     <p>Опубликовано: {{ bb.published }}</p>
+    <a href="{% url 'delete' bb.slug %}">Удалить объявление</a>
+    <br>
     <a href="{% url 'index' %}">На главную</a>
 </body>
 </html>
