@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 class Bb(models.Model):
     title = models.CharField(max_length=50, verbose_name='Заголовок')
@@ -7,11 +8,12 @@ class Bb(models.Model):
     price = models.FloatField(verbose_name='Цена')
     published = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     image = models.ImageField(upload_to='images/', verbose_name='Изображение', blank=True, null=True)
-    slug = models.SlugField(max_length=50, unique=True, verbose_name='URL', blank=True, null=True)
+    slug = models.SlugField(max_length=50, unique=True, verbose_name='URL', blank=True, null=True, allow_unicode=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор', null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.title:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title, allow_unicode=True)
             base_slug = self.slug
             counter = 1
             while Bb.objects.filter(slug=self.slug).exclude(pk=self.pk).exists():
