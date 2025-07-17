@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login
 from .models import Bb
-from .forms import BbForm
+from .forms import BbForm, CustomUserCreationForm
 
 def index(request):
     bbs = Bb.objects.all()
@@ -10,7 +11,9 @@ def create(request):
     if request.method == 'POST':
         form = BbForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            bb = form.save(commit=False)
+            bb.user = request.user  # Привязываем объявление к пользователю
+            bb.save()
             return redirect('index')
     else:
         form = BbForm()
@@ -26,3 +29,14 @@ def delete(request, slug):
         bb.delete()
         return redirect('index')
     return render(request, 'bboard/delete.html', {'bb': bb})
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Автоматический вход после регистрации
+            return redirect('index')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'bboard/register.html', {'form': form})
