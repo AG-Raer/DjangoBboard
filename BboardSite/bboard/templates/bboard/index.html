@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1>Объявления</h1>
-    <a href="{% url 'create' %}">Добавить объявление</a>
+    <a href="{% url 'create' %}">Добавить объявление</a> |
+    <a href="{% url 'register' %}">Регистрация</a>
     <ul>
         {% for bb in bbs %}
             <li>
@@ -18,6 +19,7 @@
                 <p>{{ bb.content }}</p>
                 <p>Цена: {{ bb.price }} руб.</p>
                 <p>Опубликовано: {{ bb.published }}</p>
+                <p>Автор: {{ bb.user.username|default:"Аноним" }}</p>
             </li>
         {% empty %}
             <li>Объявлений пока нет</li>
