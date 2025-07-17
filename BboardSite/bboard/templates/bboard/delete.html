@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Удалить объявление</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Удалить объявление "{{ bb.title }}"</h1>
+    <p>Вы уверены, что хотите удалить это объявление?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+        <a href="{% url 'detail' bb.slug %}">Отмена</a>
+    </form>
+    <a href="{% url 'index' %}">На главную</a>
+</body>
+</html>
