@@ -56,3 +56,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    bbs = Bb.objects.filter(user=request.user)
+    return render(request, 'bboard/profile.html', {'bbs': bbs})

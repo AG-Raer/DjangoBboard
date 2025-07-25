@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Профиль пользователя {{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <h2>Ваши объявления</h2>
+    <ul>
+        {% for bb in bbs %}
+            <li>
+                <h3><a href="{% url 'detail' bb.slug %}">{{ bb.title }}</a></h3>
+                {% if bb.image %}
+                    <img src="{{ bb.image.url }}" alt="{{ bb.title }}" width="100">
+                {% endif %}
+                <p>{{ bb.content }}</p>
+                <p>Цена: {{ bb.price }} руб.</p>
+                <p>Опубликовано: {{ bb.published }}</p>
+            </li>
+        {% empty %}
+            <li>У вас пока нет объявлений</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create' %}">Добавить объявление</a> |
+    <a href="{% url 'logout' %}">Выйти</a> |
+    <a href="{% url 'index' %}">На главную</a>
+</body>
+</html>
