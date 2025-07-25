@@ -52,3 +52,7 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'bboard/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
