@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Объявления</h1>
+    <p>Всего объявлений: {{ total_bbs }}</p>
     <nav>
         <a href="{% url 'create' %}">Добавить объявление</a> |
         {% if user.is_authenticated %}
@@ -18,7 +19,7 @@
         {% endif %}
     </nav>
     <ul>
-        {% for bb in bbs %}
+        {% for bb in page_obj %}
             <li>
                 <h3><a href="{% url 'detail' bb.slug %}">{{ bb.title }}</a></h3>
                 {% if bb.image %}
@@ -33,5 +34,21 @@
             <li>Объявлений пока нет</li>
         {% endfor %}
     </ul>
+    <!-- Пагинация -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}">назад</a>
+            {% endif %}
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">вперёд</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </body>
 </html>
