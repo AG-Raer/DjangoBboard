@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Регистрация успешна</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Регистрация успешна!</h1>
+    <p>Добро пожаловать, {{ user.username }}! Вы успешно зарегистрировались.</p>
+    <a href="{% url 'profile' %}">Перейти в профиль</a> |
+    <a href="{% url 'create' %}">Добавить объявление</a> |
+    <a href="{% url 'index' %}">На главную</a>
+</body>
+</html>

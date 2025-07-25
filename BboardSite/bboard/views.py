@@ -1,12 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator  # Импорт Paginator
 from .models import Bb
 from .forms import BbForm, CustomUserCreationForm
 
 def index(request):
     bbs = Bb.objects.all()
-    return render(request, 'bboard/index.html', {'bbs': bbs})
+    paginator = Paginator(bbs, 5)  # 5 объявлений на страницу
+    page_number = request.GET.get('page')  # Получаем номер страницы из запроса
+    page_obj = paginator.get_page(page_number)  # Объект страницы
+    total_bbs = bbs.count()  # Общее количество объявлений
+    return render(request, 'bboard/index.html', {'page_obj': page_obj, 'total_bbs': total_bbs})
 
 def create(request):
     if request.method == 'POST':
@@ -37,7 +42,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return render(request, 'bboard/success.html')
     else:
         form = CustomUserCreationForm()
     return render(request, 'bboard/register.html', {'form': form})
