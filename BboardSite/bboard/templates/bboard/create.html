@@ -12,6 +12,13 @@
         {{ form.as_p }}
         <button type="submit">Сохранить</button>
     </form>
-    <a href="{% url 'index' %}">На главную</a>
+    <a href="{% url 'index' %}">На главную</a> |
+    {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Профиль</a> |
+        <a href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+        <a href="{% url 'login' %}">Вход</a> |
+        <a href="{% url 'register' %}">Регистрация</a>
+    {% endif %}
 </body>
 </html>

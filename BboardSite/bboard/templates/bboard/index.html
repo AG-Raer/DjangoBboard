@@ -7,8 +7,16 @@
 </head>
 <body>
     <h1>Объявления</h1>
-    <a href="{% url 'create' %}">Добавить объявление</a> |
-    <a href="{% url 'register' %}">Регистрация</a>
+    <nav>
+        <a href="{% url 'create' %}">Добавить объявление</a> |
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}">Профиль ({{ user.username }})</a> |
+            <a href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+            <a href="{% url 'login' %}">Вход</a> |
+            <a href="{% url 'register' %}">Регистрация</a>
+        {% endif %}
+    </nav>
     <ul>
         {% for bb in bbs %}
             <li>
